@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,9 +28,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${inter.className} h-full antialiased`}
     >
-      <body className="h-full ">{children}</body>
+      <body className="h-full ">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

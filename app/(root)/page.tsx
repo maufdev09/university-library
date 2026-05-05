@@ -1,22 +1,17 @@
+import BookList from "@/components/ui/BookList";
+import BookOverview from "@/components/ui/BookOverview";
 import { Button } from "@/components/ui/button";
+import { sampleBooks } from "@/constant";
 
 export default function Home() {
   return (
     <>
-      <p className="">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi
-        reiciendis ipsa, voluptates non nostrum ex magnam. Odit aperiam
-        doloribus provident a, ut, tenetur vel quia, autem ducimus aut quos.
-        Beatae.
-      </p>
-
-      <Button
-        variant="default"
-        className="font-bold
-      "
-      >
-        Button
-      </Button>
+      <BookOverview {...sampleBooks[0]} />
+      <BookList
+        books={sampleBooks}
+        title="Latest Books"
+        containerClassName="mt-28"
+      />
     </>
   );
 }
