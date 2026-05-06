@@ -18,7 +18,7 @@ export default async function Home({
   const params = await searchParams;
   const query = (params.q ?? "").trim();
   const category = bookCategories.includes(params.category as never)
-    ? params.category ?? ""
+    ? (params.category ?? "")
     : "";
   const listings = await (async () => {
     try {
@@ -84,7 +84,9 @@ export default async function Home({
               <Link href="/list-book">List a book</Link>
             </Button>
             <Button asChild variant="outline" size="lg">
-              <Link href="#available-books">Browse books</Link>
+              <Link href="#available-books" className="text-black font-bold">
+                Browse books
+              </Link>
             </Button>
           </div>
         </div>
