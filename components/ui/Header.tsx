@@ -20,7 +20,7 @@ import { ModeToggle } from "../darkModeButton";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/list-book", label: "List Book" },
-  { href: "/dashboard", label: "Dashboard" },
+  { href: "/dashboard", label: "My Giveaways" },
   { href: "/admin", label: "Admin" },
 ];
 
@@ -60,12 +60,7 @@ const Header = () => {
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-3">
           <ModeToggle />
-          <Button asChild variant="outline">
-            <Link href="/dashboard">
-              <LayoutDashboard />
-              Dashboard
-            </Link>
-          </Button>
+
           <Button asChild>
             <Link href="/list-book">
               <Plus />
