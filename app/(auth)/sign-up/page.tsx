@@ -1,4 +1,7 @@
+"use client";
+
 import AuthForm from "@/components/ui/AuthForm";
+import { registerUser } from "@/app/actions";
 import { SignUpSchema } from "@/lib/validation";
 import React from "react";
 
@@ -10,11 +13,11 @@ const signUp = () => {
       defaultValues={{
         fullName: "",
         email: "",
-        universityId: undefined,
-        universityCardId: "",
+        facebookUrl: "",
+        phone: "",
         password: "",
       }}
-      onSubmit={() => {}}
+      onSubmit={registerUser}
     />
   );
 };

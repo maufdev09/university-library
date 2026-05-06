@@ -3,8 +3,8 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
-import { Book, Menu } from "lucide-react";
+import React from "react";
+import { BookOpenCheck, LayoutDashboard, Menu, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -19,13 +19,13 @@ import { ModeToggle } from "../darkModeButton";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/list-book", label: "List Book" },
+  { href: "/dashboard", label: "Dashboard" },
+  { href: "/admin", label: "Admin" },
 ];
 
 const Header = () => {
   const pathname = usePathname();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm">
@@ -35,9 +35,9 @@ const Header = () => {
           href="/"
           className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
         >
-          <Book className="h-8 w-8 text-primary" />
+          <BookOpenCheck className="h-8 w-8 text-primary" />
           <span className="text-xl font-bold text-gray-900 dark:text-white">
-            University Library
+            BoiCircle
           </span>
         </Link>
 
@@ -60,11 +60,17 @@ const Header = () => {
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-3">
           <ModeToggle />
-          <Button
-            onClick={() => setIsLoggedIn(!isLoggedIn)}
-            variant={isLoggedIn ? "outline" : "default"}
-          >
-            {isLoggedIn ? "Logout" : "Login"}
+          <Button asChild variant="outline">
+            <Link href="/dashboard">
+              <LayoutDashboard />
+              Dashboard
+            </Link>
+          </Button>
+          <Button asChild>
+            <Link href="/list-book">
+              <Plus />
+              Give book
+            </Link>
           </Button>
         </div>
 
@@ -82,8 +88,8 @@ const Header = () => {
           >
             <SheetHeader>
               <SheetTitle className="flex items-center space-x-2 text-gray-900 dark:text-white">
-                <Book className="h-6 w-6 text-primary" />
-                <span>University Library</span>
+                <BookOpenCheck className="h-6 w-6 text-primary" />
+                <span>BoiCircle</span>
               </SheetTitle>
 
               <div className="mt-5">
@@ -107,12 +113,8 @@ const Header = () => {
               ))}
 
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                <Button
-                  onClick={() => setIsLoggedIn(!isLoggedIn)}
-                  className="w-full"
-                  variant={isLoggedIn ? "outline" : "default"}
-                >
-                  {isLoggedIn ? "Logout" : "Login"}
+                <Button asChild className="w-full">
+                  <Link href="/sign-in">Login</Link>
                 </Button>
               </div>
             </div>

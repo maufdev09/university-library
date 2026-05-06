@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum ListingStatus {
+  AVAILABLE
+  GIVEN_AWAY
+}
+
+model User {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  email        String        @unique
+  passwordHash String
+  facebookUrl  String?
+  phone        String?
+  role         UserRole      @default(USER)
+  listings     BookListing[]
+  activities   Activity[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model BookListing {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  author      String
+  category    String        @default("Academic")
+  classLevel  String?
+  subject     String?
+  condition   String
+  description String
+  imageUrl    String
+  contactNote String?
+  status      ListingStatus @default(AVAILABLE)
+  ownerId     String        @db.ObjectId
+  owner       User          @relation(fields: [ownerId], references: [id])
+  activities  Activity[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  givenAwayAt DateTime?
+}
+
+model Activity {
+  id        String       @id @default(auto()) @map("_id") @db.ObjectId
+  type      String
+  message   String
+  actorId   String?      @db.ObjectId
+  actor     User?        @relation(fields: [actorId], references: [id])
+  listingId String?      @db.ObjectId
+  listing   BookListing? @relation(fields: [listingId], references: [id])
+  createdAt DateTime     @default(now())
+}
